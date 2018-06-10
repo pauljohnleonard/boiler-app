@@ -13,7 +13,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { NetworkInterface } from '@ionic-native/network-interface';
 import { ConfigProvider } from '../providers/config/config';
-import { IpProvider } from '../providers/ip/ip';
+import { IpSetupProvider } from '../providers/ipsetup/ipsetup';
+import { ModelProvider } from '../providers/model/model';
 
 @NgModule({
   declarations: [
@@ -38,12 +39,14 @@ import { IpProvider } from '../providers/ip/ip';
   ],
   providers: [
     StatusBar,
-    IpProvider,
+    IpSetupProvider,
     SplashScreen,
     NetworkInterface,
+    ModelProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ConfigProvider,
-    IpProvider
+    IpSetupProvider,
+    ModelProvider
   ]
 })
 export class AppModule {}

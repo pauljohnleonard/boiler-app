@@ -1,6 +1,8 @@
+import {take} from 'rxjs/operators/take';
 import { ConfigProvider } from '../../providers/config/config';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { IpSetupProvider } from '../../providers/ipsetup/ipsetup';
 
 @Component({
     selector: 'page-about',
@@ -8,22 +10,29 @@ import { NavController } from 'ionic-angular';
 })
 export class AboutPage {
 
-    wifiIP: string ="UNSET";
-    constructor(public navCtrl: NavController, config: ConfigProvider) {
+    wifiIPsuggest: string ="UNSET";
+   
+
+    constructor(public navCtrl: NavController,public config: ConfigProvider,public ip:IpSetupProvider) {
         console.log('Hello ConfigProvider Provider');
 
         config.wifiSubject.subscribe((ip) => {
-            this.wifiIP = JSON.stringify(ip, null, 2)
+            this.wifiIPsuggest += ip+"\n"
         });
-
 
         // networkInterface.getCarrierIPAddress().then((ip) => {
         //     this.carrierIP = ip
         // });
     }
 
+    search() {
 
-
-
-
+        let toks = this.config.lanIPbase.split(".");
+        if (toks.length > 2 ) {
+            this.config.lanIPbase =toks[0]+"."+toks[1]+"."+toks[2]
+        } 
+        
+        this.ip.searchForDevice(this.config.lanIPbase);
+ 
+    }
 }

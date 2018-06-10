@@ -30,7 +30,7 @@ export class SetupPage {
 
     setup() {
         console.log(" TALKING TO sunrise setup")
-        const url = "http://192.168.4.1/?ssid=" + this.ssid + "&password=" + this.password;
+        const url = "http://192.168.4.1/?cmd=setup&ssid=" + this.ssid + "&password=" + this.password;
         this.http.get(url, { responseType: 'text' }).pipe(timeout(1000)).subscribe(
             (res) => {
                 console.log(res);
