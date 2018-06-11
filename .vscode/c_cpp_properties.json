@@ -9,7 +9,8 @@
                 "/Users/paulleonard/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/variants/wifio",
                 "/Users/paulleonard/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/EEPROM",
                 "/Users/paulleonard/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/ESP8266WiFi/src/",
-                "/Users/paulleonard/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/ESP8266mDNS"
+                "/Users/paulleonard/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/ESP8266mDNS",
+                "/Users/paulleonard/Library/Arduino15/packages/esp8266/hardware/esp8266/2.3.0/libraries/DNSServer/src/"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,

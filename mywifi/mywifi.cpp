@@ -1,10 +1,15 @@
 #include "mywifi.h"
 
 #include <ESP8266WiFi.h>
-//#include <WiFiClient.h>
 #include <ESP8266mDNS.h> // Include the mDNS library
+#include <DNSServer.h>
 
 WiFiServer server(80); //Service Port
+// DNS server
+const byte DNS_PORT = 53;
+DNSServer dnsServer;
+IPAddress apIP(192, 168, 4, 1);
+IPAddress netMsk(255, 255, 255, 0);
 
 int findParamEnd(String &req, int start)
 {
@@ -198,24 +203,24 @@ void MyWifi::setupAP(String &apssid, String &domainAP)
     Serial.print("Setting up access point on : ");
     Serial.println(apssid);
     const char *p = const_cast<char *>(apssid.c_str());
-
+    WiFi.softAPConfig(apIP, apIP, netMsk);
     WiFi.softAP(p);
 
     Serial.println("");
     Serial.println("WiFi connected");
 
     this->state = MyWifi::AP;
-    if (!MDNS.begin(domainAP.c_str()))
-    { // Start the mDNS responder for esp8266.local
-        Serial.println(" Error setting up MDNS responder!");
-    }
+
+
+ /* Setup the DNS server redirecting all the domains to the apIP */
+     dnsServer.setErrorReplyCode(DNSReplyCode::NoError);
+     dnsServer.start(DNS_PORT, "*", apIP);
+
+
     // Start the server
     server.begin();
     Serial.println("Server started");
 
-    Serial.println(" mDNS responder started");
-
-    MDNS.addService("http", "tcp", 80);
     IPAddress myIP = WiFi.softAPIP();
 
     Serial.print("Device IP address: ");
